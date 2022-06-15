@@ -2,7 +2,8 @@ import "./App.css";
 
 import { useEffect, useState } from "react";
 
-const url = "https://localhost:44305/Pessoa";
+const url = "https://localhost:5001/Pessoa";
+let pessoas = [];
 
 function App() {
   const [pessoa, setPessoa] = useState([]);
@@ -13,11 +14,20 @@ function App() {
       const data = await res.json();
 
       setPessoa(data);
+
+      data.forEach(element => {
+        pessoas.push(element);
+      });
+
     }
 
     fetchData();
   }, []);
-  return <div className="App"></div>;
+  return (
+  <div className="App"> 
+      
+   </div>
+  );
 }
 
 export default App;
