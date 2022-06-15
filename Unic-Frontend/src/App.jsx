@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const url = "https://localhost:5001/Pessoa";
 let pessoas = [];
-
+//teste
 function App() {
   const [pessoa, setPessoa] = useState([]);
 
