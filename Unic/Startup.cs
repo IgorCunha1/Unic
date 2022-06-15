@@ -20,12 +20,25 @@ namespace Unic
 
         public IConfiguration Configuration { get; }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<UnicContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("Unic")));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("https://example.com",
+                                                          "https://www.contoso.com");
+                                  });
+            });
+
             services.AddControllersWithViews();
             services.AddSwaggerGen(c =>
             {
