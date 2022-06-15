@@ -69,9 +69,10 @@ namespace Unic.Controllers
 
 
         [HttpGet]
-        public IEnumerable<Pessoa> ListarPessoa()
+        public IActionResult ListarPessoa()
         {
-            return _context.Pessoa;
+            var pessoas = _context.Pessoa;
+            return Json(pessoas);
         }
         
         [HttpDelete("{id}")]

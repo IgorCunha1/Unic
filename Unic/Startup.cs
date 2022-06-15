@@ -34,8 +34,7 @@ namespace Unic
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   policy =>
                                   {
-                                      policy.WithOrigins("https://example.com",
-                                                          "https://www.contoso.com");
+                                      policy.WithOrigins("http://localhost:3000");
                                   });
             });
 
@@ -45,7 +44,7 @@ namespace Unic
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "UnicApi", Version = "v1" });
             });
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +64,8 @@ namespace Unic
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
