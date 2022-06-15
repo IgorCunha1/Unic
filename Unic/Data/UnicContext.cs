@@ -13,7 +13,7 @@ namespace Unic.Data
         {
 
         }
-
+        //up
         public DbSet<Pessoa> Pessoa { get; set; }
         
 
