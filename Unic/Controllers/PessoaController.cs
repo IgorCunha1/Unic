@@ -6,7 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Unic.Data;
-
+using Unic.Data.Dtos;
+using AutoMapper;
 
 namespace Unic.Controllers
 {
@@ -15,11 +16,12 @@ namespace Unic.Controllers
     public class PessoaController : Controller
     {
         private UnicContext _context;
+        private IMapper _mapper;
 
-
-        public PessoaController(UnicContext unicContext)
+        public PessoaController(UnicContext unicContext, IMapper mapper)
         {
             _context = unicContext;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -28,8 +30,10 @@ namespace Unic.Controllers
         }
 
         [HttpPost]
-        public IActionResult AdicionarPessoa([FromBody] Pessoa pessoa)
+        public IActionResult AdicionarPessoa([FromBody] CreatePessoaDto pessoaDto)
         {
+            Pessoa pessoa = _mapper.Map<Pessoa>(pessoaDto);
+
             pessoa.DataCriaCao = DateTime.Now;
             _context.Pessoa.Add(pessoa);
             _context.SaveChanges();
@@ -42,16 +46,17 @@ namespace Unic.Controllers
         {
 
             Pessoa pessoa = _context.Pessoa.FirstOrDefault(p => p.Id == id);
+            var pessoaDto = _mapper.Map<RecuperarPessoaDto>(pessoa);
             if (pessoa != null)
             {
-                return Ok(pessoa);
+                return Ok(pessoaDto);
             }
 
             return NotFound();
         }
 
         [HttpPut("{id}")]
-        public IActionResult Editar(int id, [FromBody] Pessoa PessoaEditada)
+        public IActionResult Editar(int id, [FromBody] AlterarPessoaDto PessoaEditada)
         {
             
             Pessoa pessoa = _context.Pessoa.FirstOrDefault(p => p.Id == id);
@@ -59,8 +64,8 @@ namespace Unic.Controllers
             {
                 return NotFound();
             }
-            pessoa.Cpf = PessoaEditada.Cpf;
-            pessoa.NomeCompleto = PessoaEditada.NomeCompleto;
+
+            pessoa = _mapper.Map<Pessoa>(PessoaEditada);
 
             _context.SaveChanges();
             
@@ -72,7 +77,13 @@ namespace Unic.Controllers
         public IActionResult ListarPessoa()
         {
             var pessoas = _context.Pessoa;
-            return Json(pessoas);
+            List<ListarPessoaDto> pessoaDto = new();
+            foreach (var p in pessoas)
+            {
+                pessoaDto.Add(_mapper.Map<ListarPessoaDto>(p));
+            }
+            
+            return Json(pessoaDto);
         }
         
         [HttpDelete("{id}")]
