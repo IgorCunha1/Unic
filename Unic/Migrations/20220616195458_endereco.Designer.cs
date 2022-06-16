@@ -10,8 +10,8 @@ using Unic.Data;
 namespace Unic.Migrations
 {
     [DbContext(typeof(UnicContext))]
-    [Migration("20220616165306_Endereco")]
-    partial class Endereco
+    [Migration("20220616195458_endereco")]
+    partial class endereco
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,6 +44,7 @@ namespace Unic.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Logradouro")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Numero")
@@ -69,6 +70,9 @@ namespace Unic.Migrations
                     b.Property<DateTime>("DataCriaCao")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("EnderecoId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Nascimento")
                         .HasColumnType("datetime2");
 
@@ -78,7 +82,26 @@ namespace Unic.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EnderecoId")
+                        .IsUnique();
+
                     b.ToTable("Pessoa");
+                });
+
+            modelBuilder.Entity("Unic.Models.Pessoa", b =>
+                {
+                    b.HasOne("Unic.Models.Endereco", "Endereco")
+                        .WithOne("Pessoa")
+                        .HasForeignKey("Unic.Models.Pessoa", "EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Endereco");
+                });
+
+            modelBuilder.Entity("Unic.Models.Endereco", b =>
+                {
+                    b.Navigation("Pessoa");
                 });
 #pragma warning restore 612, 618
         }

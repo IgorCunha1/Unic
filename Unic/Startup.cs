@@ -27,7 +27,7 @@ namespace Unic
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<UnicContext>(options =>
-                options.UseSqlServer(
+                options.UseLazyLoadingProxies().UseSqlServer(
                     Configuration.GetConnectionString("Unic")));
 
             services.AddCors(options =>

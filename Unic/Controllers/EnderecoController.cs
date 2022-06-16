@@ -35,7 +35,7 @@ namespace Unic.Controllers
             _context.Endereco.Add(endereco);
             _context.SaveChanges();
             return CreatedAtAction(nameof(RecuperarEndereco), new { id = endereco.Id, endereco });
-        }
+            }
 
         [HttpPut("{id}")]
         public IActionResult Editar(int id, [FromBody] AlterarEnderecoDto enderecoDto)
