@@ -29,6 +29,9 @@ namespace Unic.Models
 
         [Required]
         public DateTime DataCriaCao { get; set; }
-        
+
+        public virtual Endereco Endereco { get; set; }
+
+        public int EnderecoId { get; set; }
     }
 }

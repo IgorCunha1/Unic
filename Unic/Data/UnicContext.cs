@@ -13,7 +13,15 @@ namespace Unic.Data
         {
 
         }
-        //up
+        
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Endereco>()
+                .HasOne(endereco => endereco.Pessoa)
+                .WithOne(pessoa => pessoa.Endereco)
+                .HasForeignKey<Pessoa>(pessoa => pessoa.EnderecoId);
+        }
+
         public DbSet<Pessoa> Pessoa { get; set; }
         public DbSet<Endereco> Endereco { get; set; }
         

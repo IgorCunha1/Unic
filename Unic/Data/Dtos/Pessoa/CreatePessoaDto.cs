@@ -19,5 +19,8 @@ namespace Unic.Data.Dtos
 
         [Required]
         public DateTime DataCriaCao { get; set; }
+
+        [Required]
+        public int EnderecoID { get; set; }
     }
 }

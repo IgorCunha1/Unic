@@ -46,7 +46,11 @@ namespace Unic.Controllers
         {
 
             Pessoa pessoa = _context.Pessoa.FirstOrDefault(p => p.Id == id);
+            Endereco endereco = _context.Endereco.FirstOrDefault(e => e.Id == pessoa.EnderecoId);
+
             var pessoaDto = _mapper.Map<RecuperarPessoaDto>(pessoa);
+            pessoaDto.Endereco = endereco;
+           
             if (pessoa != null)
             {
                 return Ok(pessoaDto);
