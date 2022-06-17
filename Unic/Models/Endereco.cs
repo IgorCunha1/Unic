@@ -32,9 +32,6 @@ namespace Unic.Models
         [Required]
         public int Cep { get; set; }
 
-        [JsonIgnore]
-        public virtual Pessoa Pessoa { get; set; }
-
-
+        public virtual List<PessoaEndereco> PessoaEnderecos { get; set; }
     }
 }

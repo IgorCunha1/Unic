@@ -16,14 +16,22 @@ namespace Unic.Data
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Endereco>()
-                .HasOne(endereco => endereco.Pessoa)
-                .WithOne(pessoa => pessoa.Endereco)
-                .HasForeignKey<Pessoa>(pessoa => pessoa.EnderecoId);
+            builder.Entity<PessoaEndereco>()
+                .HasOne(PessoaEndereco => PessoaEndereco.Enderecos)
+                .WithMany(Endereco => Endereco.PessoaEnderecos)
+                .HasForeignKey(PessoaEndereco => PessoaEndereco.EnderecoId);
+
+            builder.Entity<PessoaEndereco>()
+                .HasOne(PessoaEndereco => PessoaEndereco.Pessoas)
+                .WithMany(Pessoa => Pessoa.PessoaEnderecos)
+                .HasForeignKey(PessoaEndereco => PessoaEndereco.PessoaId);
+
         }
 
         public DbSet<Pessoa> Pessoa { get; set; }
         public DbSet<Endereco> Endereco { get; set; }
+
+        public DbSet<PessoaEndereco> PessoaEndereco { get; set; }
         
 
     }

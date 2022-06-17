@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Unic.Models;
 
 namespace Unic.Data.Dtos
 {
@@ -20,5 +21,6 @@ namespace Unic.Data.Dtos
         [Required]
         public DateTime DataCriaCao { get; set; }
 
+        public List<Endereco> Enderecos { get; set; }
     }
 }
