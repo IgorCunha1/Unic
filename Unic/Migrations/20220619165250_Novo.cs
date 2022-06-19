@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Unic.Migrations
 {
-    public partial class endereco : Migration
+    public partial class Novo : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-           migrationBuilder.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "Endereco",
                 columns: table => new
                 {

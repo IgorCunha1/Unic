@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Unic.Models
@@ -30,6 +31,8 @@ namespace Unic.Models
         [Required]
         public DateTime DataCriaCao { get; set; }
 
-        public virtual List<PessoaEndereco> PessoaEnderecos { get; set; }
+        public int EnderecoId { get; set; }
+
+        public virtual Endereco Endereco { get; set; }
     }
 }

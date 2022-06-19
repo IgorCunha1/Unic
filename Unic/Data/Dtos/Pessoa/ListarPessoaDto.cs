@@ -21,6 +21,8 @@ namespace Unic.Data.Dtos
         [Required]
         public DateTime DataCriaCao { get; set; }
 
-        public List<Endereco> Enderecos { get; set; }
+        public Endereco Endereco { get; set; }
+
+        
     }
 }

@@ -11,8 +11,7 @@ using AutoMapper;
 
 namespace Unic.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
+    
     public class PessoaController : Controller
     {
         private UnicContext _context;
@@ -24,12 +23,15 @@ namespace Unic.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
+        [Route("Index")]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("AdicionarPessoa")]
         public IActionResult AdicionarPessoa([FromBody] CreatePessoaDto pessoaDto)
         {
             Pessoa pessoa = _mapper.Map<Pessoa>(pessoaDto);
@@ -42,6 +44,7 @@ namespace Unic.Controllers
         }
 
         [HttpGet("{id}")]
+        [Route("RecuperarPessoa")]
         public IActionResult RecuperarPessoa(int id)
         {
 
@@ -74,6 +77,7 @@ namespace Unic.Controllers
 
 
         [HttpGet]
+        [Route("ListarPessoa")]
         public IActionResult ListarPessoa()
         {
             var pessoas = _context.Pessoa;

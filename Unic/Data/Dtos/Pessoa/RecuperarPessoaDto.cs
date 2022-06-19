@@ -18,6 +18,5 @@ namespace Unic.Data.Dtos
         [Required]
         public DateTime Nascimento { get; set; }
 
-        public Endereco Endereco { get; set; }
     }
 }

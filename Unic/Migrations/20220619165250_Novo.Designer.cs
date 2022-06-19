@@ -10,8 +10,8 @@ using Unic.Data;
 namespace Unic.Migrations
 {
     [DbContext(typeof(UnicContext))]
-    [Migration("20220616195458_endereco")]
-    partial class endereco
+    [Migration("20220619165250_Novo")]
+    partial class Novo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

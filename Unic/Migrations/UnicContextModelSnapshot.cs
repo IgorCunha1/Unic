@@ -68,6 +68,9 @@ namespace Unic.Migrations
                     b.Property<DateTime>("DataCriaCao")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("EnderecoId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Nascimento")
                         .HasColumnType("datetime2");
 
@@ -77,58 +80,26 @@ namespace Unic.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EnderecoId")
+                        .IsUnique();
+
                     b.ToTable("Pessoa");
-                });
-
-            modelBuilder.Entity("Unic.Models.PessoaEndereco", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EnderecoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PessoaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("EnderecoId");
-
-                    b.HasIndex("PessoaId");
-
-                    b.ToTable("PessoaEndereco");
-                });
-
-            modelBuilder.Entity("Unic.Models.PessoaEndereco", b =>
-                {
-                    b.HasOne("Unic.Models.Endereco", "Enderecos")
-                        .WithMany("PessoaEnderecos")
-                        .HasForeignKey("EnderecoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Unic.Models.Pessoa", "Pessoas")
-                        .WithMany("PessoaEnderecos")
-                        .HasForeignKey("PessoaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Enderecos");
-
-                    b.Navigation("Pessoas");
-                });
-
-            modelBuilder.Entity("Unic.Models.Endereco", b =>
-                {
-                    b.Navigation("PessoaEnderecos");
                 });
 
             modelBuilder.Entity("Unic.Models.Pessoa", b =>
                 {
-                    b.Navigation("PessoaEnderecos");
+                    b.HasOne("Unic.Models.Endereco", "Endereco")
+                        .WithOne("Pessoa")
+                        .HasForeignKey("Unic.Models.Pessoa", "EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Endereco");
+                });
+
+            modelBuilder.Entity("Unic.Models.Endereco", b =>
+                {
+                    b.Navigation("Pessoa");
                 });
 #pragma warning restore 612, 618
         }

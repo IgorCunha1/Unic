@@ -1,0 +1,37 @@
+﻿
+
+<div class="Row" ng-app="Unic" ng-controller="PessoaController">
+    <table class="table table-striped" ng-init="ListarPessoas()">
+        <thead>
+            <tr>
+                <th scope="col">Nome Completo</th>
+                <th scope="col">Cpf</th>
+                <th scope="col">Endereco</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="pe in Pessoas">
+                <td class="">{{pe.nomeCompleto}}</td>
+                <td>{{pe.cpf}}</td>
+                <td>
+                    {{pe.endereco.logradouro}}, {{pe.endereco.numero}},
+                    {{pe.endereco.cidade}}-{{pe.endereco.estado}}
+
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+    <button type="submit" class="btn btn-danger" ng-click="">
+        Listar <i class="fa-solid fa-trash-can-plus"></i>
+    </button>
+</div>
+
+@section scripts
+{
+   @* @{await Html.RenderPartialAsync("_AngularScriptsPartial");}*@
+
+    <script src="~/js/PessoaController.js"></script>
+    <script src="~/js/site.js"></script>
+}
