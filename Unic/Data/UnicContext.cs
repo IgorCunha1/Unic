@@ -25,6 +25,8 @@ namespace Unic.Data
 
         public DbSet<Pessoa> Pessoa { get; set; }
         public DbSet<Endereco> Endereco { get; set; }
+
+        
         
 
     }

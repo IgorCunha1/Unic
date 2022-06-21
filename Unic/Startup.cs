@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using AutoMapper;
 
+
 namespace Unic
 {
     public class Startup
@@ -30,6 +31,7 @@ namespace Unic
                 options.UseLazyLoadingProxies().UseSqlServer(
                     Configuration.GetConnectionString("Unic")));
 
+            
             services.AddCors(options =>
             {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
