@@ -81,11 +81,11 @@ namespace Unic.Controllers
         public IActionResult ListarPessoa()
         {
             var pessoas = _context.Pessoa;
-            //List<ListarPessoaDto> pessoaDto = new();
-            //foreach (var p in pessoas)
-            //{
-            //    pessoaDto.Add(_mapper.Map<ListarPessoaDto>(p));
-            //}
+            List<ListarPessoaDto> pessoaDto = new();
+            foreach (var p in pessoas)
+            {
+                pessoaDto.Add(_mapper.Map<ListarPessoaDto>(p));
+            }
             
             return Json(pessoas);
         }

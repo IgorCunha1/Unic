@@ -1,32 +1,99 @@
 ﻿
 
-<div class="Row" ng-app="Unic" ng-controller="PessoaController">
-    <table class="table table-striped" ng-init="ListarPessoas()">
-        <thead>
-            <tr>
-                <th scope="col">Nome Completo</th>
-                <th scope="col">Cpf</th>
-                <th scope="col">Endereco</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="pe in Pessoas">
-                <td class="">{{pe.nomeCompleto}}</td>
-                <td>{{pe.cpf}}</td>
-                <td>
-                    {{pe.endereco.logradouro}}, {{pe.endereco.numero}},
-                    {{pe.endereco.cidade}}-{{pe.endereco.estado}}
+        <div ng-app="Unic" ng-controller="PessoaController">
+                <table class="table table-striped" ng-init="ListarPessoas()">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome Completo</th>
+                            <th scope="col">Cpf</th>
+                            <th scope="col">Endereco</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pe in Pessoas">
+                            <td class="">{{pe.nomeCompleto}}</td>
+                            <td>{{pe.cpf}}</td>
+                            <td>
+                                {{pe.endereco.logradouro}}, {{pe.endereco.numero}},
+                                {{pe.endereco.cidade}}-{{pe.endereco.estado}}
 
-                </td>
-            </tr>
+                            </td>
+                        </tr>
 
-        </tbody>
+                    </tbody>
 
-    </table>
-    <button type="submit" class="btn btn-danger" ng-click="">
-        Listar <i class="fa-solid fa-trash-can-plus"></i>
-    </button>
-</div>
+                </table>
+                <button type="submit" class="btn btn-info btn-lg" data-toggle="modal" data-target="#adicionarPessoa">
+                    Adicionar <i class="fa-solid fa-trash-can-plus"></i>
+                </button>
+
+        <div class="modal fade" id="adicionarPessoa" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                
+                <div class="modal-content">
+                    
+                    <div class="modal-header">
+                        <h4 class="modal-title">Adicionar Pessoa</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form>
+                            <div class="form-row">
+                                <h2 class="form-text">Dados Pessoais</h2>
+                                <div class="form-group col-sm-12">
+                                    <label for="NomeCompleto">Nome Completo</label>
+                                    <input id="NomeCompleto" class="form-control" ng-model="nomeCompleto" />
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="Cpf">CPF</label>
+                                    <input id="cpf" class="form-control" ng-model="cpf" />
+                                </div>
+                            </div>
+                            <hr />
+                            <h3 class="form-text">Endereco</h3>
+                            <div class="form-row">
+                                <div class="form-group col-sm-4">
+                                    <label for="Cep">Cep</label>
+                                    <input id="Cep" class="form-control" ng-model="cep" />
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label for="Endereco">Logradouro</label>
+                                    <input id="Endereco" class="form-control" ng-model="logradouro" />
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="Numero">Numero</label>
+                                    <input id="Numero" class="form-control" ng-model="numero" />
+                                </div>
+                                <div class="form-group col-sm-8">
+                                    <label for="Bairro">bairro</label>
+                                    <input id="Bairro" class="form-control" ng-model="bairro" />
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="Cidade">Cidade</label>
+                                    <input id="Cidade" class="form-control" ng-model="cidade" />
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="Estado">Estado</label>
+                                    <input id="Estado" class="form-control" ng-model="estado" />
+                                </div>
+
+                            </div>
+                            
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" ng-click="salvarPessoa()">Salvar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelar()">Cancelar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
 
 @section scripts
 {

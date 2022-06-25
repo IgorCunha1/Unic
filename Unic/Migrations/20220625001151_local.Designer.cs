@@ -10,8 +10,8 @@ using Unic.Data;
 namespace Unic.Migrations
 {
     [DbContext(typeof(UnicContext))]
-    [Migration("20220621012011_azure")]
-    partial class azure
+    [Migration("20220625001151_local")]
+    partial class local
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
