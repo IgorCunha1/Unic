@@ -14,7 +14,7 @@ namespace Unic.Data.Dtos
         [Required]
         public string Cpf { get; set; }
 
-        [Required]
+        
         public DateTime Nascimento { get; set; }
 
         [Required]

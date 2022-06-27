@@ -10,8 +10,7 @@ using Unic.Models;
 
 namespace Unic.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
+
     public class EnderecoController : Controller
     {
         private UnicContext _context;
@@ -29,6 +28,7 @@ namespace Unic.Controllers
         }
 
         [HttpPost]
+        [Route("AdicionarEndereco")]
         public IActionResult AdicionarEndereco([FromBody] CreateEnderecoDto enderecoDto)
         {
             var endereco = _mapper.Map<Endereco>(enderecoDto);

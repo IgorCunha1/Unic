@@ -7,6 +7,7 @@
                             <th scope="col">Nome Completo</th>
                             <th scope="col">Cpf</th>
                             <th scope="col">Endereco</th>
+                            @* <th scope="col">Nascimento</th> *@
                         </tr>
                     </thead>
                     <tbody>
@@ -16,8 +17,8 @@
                             <td>
                                 {{pe.endereco.logradouro}}, {{pe.endereco.numero}},
                                 {{pe.endereco.cidade}}-{{pe.endereco.estado}}
-
                             </td>
+                            @* <td>{{pe.nascimento}}</td> *@
                         </tr>
 
                     </tbody>
@@ -47,7 +48,11 @@
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="Cpf">CPF</label>
-                                    <input id="cpf" class="form-control" ng-model="cpf" />
+                                    <input id="cpf" class="form-control" ng-model="cpf" onblur="return verificarCPF(this.value)" />
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="Data">Nascimento</label>
+                                    <input id="data" type="date" class="form-control" ng-model="nascimento" />
                                 </div>
                             </div>
                             <hr />
@@ -55,11 +60,16 @@
                             <div class="form-row">
                                 <div class="form-group col-sm-4">
                                     <label for="Cep">Cep</label>
-                                    <input id="Cep" class="form-control" ng-model="cep" />
+                                    <div class="input-group">
+                                        <input type="search" id="Cep" class="form-control" ng-model="cep" />
+                                        <button type="button" class="btn btn-outline-success" ng-click="pesquisaCep(cep)">
+                                            Pesquisar
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <label for="Endereco">Logradouro</label>
-                                    <input id="Endereco" class="form-control" ng-model="logradouro" />
+                                    <input id="Endereco" class="form-control" ng-model="logradouro" readonly />
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label for="Numero">Numero</label>
@@ -67,15 +77,15 @@
                                 </div>
                                 <div class="form-group col-sm-8">
                                     <label for="Bairro">bairro</label>
-                                    <input id="Bairro" class="form-control" ng-model="bairro" />
+                                    <input id="Bairro" class="form-control" ng-model="bairro" readonly/>
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label for="Cidade">Cidade</label>
-                                    <input id="Cidade" class="form-control" ng-model="cidade" />
+                                    <input id="Cidade" class="form-control" ng-model="cidade" readonly/>
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label for="Estado">Estado</label>
-                                    <input id="Estado" class="form-control" ng-model="estado" />
+                                    <input id="Estado" class="form-control" ng-model="estado" readonly/>
                                 </div>
 
                             </div>
@@ -84,7 +94,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" ng-click="salvarPessoa()">Salvar</button>
+                        <button type="button" class="btn btn-success" ng-click="AdicionarPessoa()">Salvar</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelar()">Cancelar</button>
                     </div>
                 </div>
