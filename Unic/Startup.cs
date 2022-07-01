@@ -9,7 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System;
 using AutoMapper;
-
+using Unic.Repositories.Interfaces;
+using Unic.Repositories;
 
 namespace Unic
 {
@@ -31,7 +32,12 @@ namespace Unic
                 options.UseLazyLoadingProxies().UseSqlServer(
                     Configuration.GetConnectionString("Unic")));
 
+            services.AddTransient<IPessoaRepository, PessoaRepository>();
+            services.AddTransient<IEnderecoRepository, EnderecoRepository>();
+
             
+
+
             services.AddCors(options =>
             {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -42,6 +48,8 @@ namespace Unic
             });
 
             services.AddControllersWithViews();
+            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "UnicApi", Version = "v1" });

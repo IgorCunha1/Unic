@@ -10,6 +10,9 @@ namespace Unic.Data.Dtos
     public class RecuperarPessoaDto
     {
         [Required]
+        public string Id { get; set; }
+
+        [Required]
         public string NomeCompleto { get; set; }
 
         [Required]
@@ -18,5 +21,7 @@ namespace Unic.Data.Dtos
         [Required]
         public DateTime Nascimento { get; set; }
 
+        [Required]
+        public Endereco Endereco { get; set; }
     }
 }

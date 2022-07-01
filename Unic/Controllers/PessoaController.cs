@@ -8,19 +8,22 @@ using System.Threading.Tasks;
 using Unic.Data;
 using Unic.Data.Dtos;
 using AutoMapper;
+using Unic.Repositories.Interfaces;
 
 namespace Unic.Controllers
 {
-    
+
     public class PessoaController : Controller
     {
         private UnicContext _context;
         private IMapper _mapper;
+        private IPessoaRepository _pessoaRepository;
 
-        public PessoaController(UnicContext unicContext, IMapper mapper)
+        public PessoaController(UnicContext unicContext, IMapper mapper, IPessoaRepository pessoaRepository)
         {
             _context = unicContext;
             _mapper = mapper;
+            _pessoaRepository = pessoaRepository;
         }
 
         [HttpGet]
@@ -31,20 +34,23 @@ namespace Unic.Controllers
         }
 
         [HttpPost]
-        [Route("AdicionarPessoa")]
-        public IActionResult AdicionarPessoa([FromBody] CreatePessoaDto pessoaDto)
+        [Route("Pessoa/AdicionarPessoa")]
+        public async Task<IActionResult> AdicionarPessoaAsync([FromBody] CreatePessoaDto pessoaDto)
         {
-            Pessoa pessoa = _mapper.Map<Pessoa>(pessoaDto);
+            if (!ModelState.IsValid)
+            {
+                return NoContent();
+            }
 
-            pessoa.DataCriaCao = DateTime.Now;
-            _context.Pessoa.Add(pessoa);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(RecuperarPessoa), new { id = pessoa.Id, pessoa });
+            Pessoa pessoa = _mapper.Map<Pessoa>(pessoaDto);
+            await _pessoaRepository.AdicionarPessoa(pessoa);
+
+            return Ok();
 
         }
 
-        [HttpGet("{id}")]
-        [Route("RecuperarPessoa")]
+        [HttpGet]
+        [Route("Pessoa/RecuperarPessoa/{id}")]
         public IActionResult RecuperarPessoa(int id)
         {
 
@@ -58,7 +64,8 @@ namespace Unic.Controllers
             return NotFound();
         }
 
-        [HttpPut("{id}")]
+        [HttpPost]
+        [Route("Pessoa/EditarPessoa/{id}")]
         public IActionResult Editar(int id, [FromBody] AlterarPessoaDto PessoaEditada)
         {
             
@@ -77,10 +84,10 @@ namespace Unic.Controllers
 
 
         [HttpGet]
-        [Route("ListarPessoa")]
+        [Route("Pessoa/ListarPessoa")]
         public IActionResult ListarPessoa()
         {
-            var pessoas = _context.Pessoa;
+            var pessoas = _pessoaRepository.ListarPessoas();
             List<ListarPessoaDto> pessoaDto = new();
             foreach (var p in pessoas)
             {
@@ -90,7 +97,8 @@ namespace Unic.Controllers
             return Json(pessoas);
         }
         
-        [HttpDelete("{id}")]
+        [HttpPost]
+        [Route("Pessoa/Deletar/{id}")]
         public IActionResult Deletar(int id)
         {
             try { 

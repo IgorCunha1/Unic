@@ -37,23 +37,25 @@ namespace Unic.Controllers
             return CreatedAtAction(nameof(RecuperarEndereco), new { id = endereco.Id, endereco });
             }
 
-        [HttpPut("{id}")]
-        public IActionResult Editar(int id, [FromBody] AlterarEnderecoDto enderecoDto)
+        [HttpPost]
+        [Route("EditarEndereco/{id}")]
+        public async Task<IActionResult> Editar(int id, [FromBody] AlterarEnderecoDto enderecoDto)
         {
             var endereco = _context.Endereco.FirstOrDefault(e => e.Id == id);
             if(endereco != null)
             {
                 endereco = _mapper.Map<Endereco>(enderecoDto);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
-                return Ok(endereco);
+                return Ok();
             }
 
             return NotFound();
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Deletar(int id)
+        [HttpDelete]
+        [Route("Deletar")]
+        public IActionResult Deletar([FromQuery] int id)
         {
             var endereco = _context.Endereco.FirstOrDefault(e => e.Id == id);
             if(endereco != null)

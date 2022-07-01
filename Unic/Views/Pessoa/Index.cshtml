@@ -2,29 +2,36 @@
 
         <div ng-app="Unic" ng-controller="PessoaController">
                 <table class="table table-striped" ng-init="ListarPessoas()">
-                    <thead>
+                    <thead style="align-items:center">
                         <tr>
+                            <th scope="col" hidden>PessoaId</th>
+                            <th scope="col" hidden>EnderecoId</th>
                             <th scope="col">Nome Completo</th>
                             <th scope="col">Cpf</th>
                             <th scope="col">Endereco</th>
-                            @* <th scope="col">Nascimento</th> *@
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="pe in Pessoas">
+                            <td hidden>{{pe.id}}</td>
+                            <td hidden>{{pe.enderecoId}}</td>
                             <td class="">{{pe.nomeCompleto}}</td>
                             <td>{{pe.cpf}}</td>
                             <td>
                                 {{pe.endereco.logradouro}}, {{pe.endereco.numero}},
                                 {{pe.endereco.cidade}}-{{pe.endereco.estado}}
                             </td>
-                            @* <td>{{pe.nascimento}}</td> *@
+                            <td>
+                                <a class="btn btn-warning" data-toggle="modal" data-target="#adicionarPessoa" ng-click="SelecionarPessoa(pe.id)" style="color:linen">Editar</a>
+                                <a class="btn btn-danger" ng-click="DeletarPessoa(pe.id)" style="color:linen">Deletar</a>
+                            </td>
                         </tr>
 
                     </tbody>
 
                 </table>
-                <button type="submit" class="btn btn-info btn-lg" data-toggle="modal" data-target="#adicionarPessoa">
+                <button type="submit" class="btn btn-info btn-lg" data-toggle="modal" data-target="#adicionarPessoa" ng-click="exibirSalvar()">
                     Adicionar <i class="fa-solid fa-trash-can-plus"></i>
                 </button>
 
@@ -42,6 +49,7 @@
                         <form>
                             <div class="form-row">
                                 <h2 class="form-text">Dados Pessoais</h2>
+                                <input ng-model="pessoaId" hidden/>
                                 <div class="form-group col-sm-12">
                                     <label for="NomeCompleto">Nome Completo</label>
                                     <input id="NomeCompleto" class="form-control" ng-model="nomeCompleto" />
@@ -67,6 +75,7 @@
                                         </button>
                                     </div>
                                 </div>
+                                <input ng-model="enderecoId" hidden/>
                                 <div class="form-group col-sm-12">
                                     <label for="Endereco">Logradouro</label>
                                     <input id="Endereco" class="form-control" ng-model="logradouro" readonly />
@@ -94,8 +103,9 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" ng-click="AdicionarPessoa()">Salvar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelar()">Cancelar</button>
+                        <button type="button" id="botaoSalvar" class="btn btn-success" ng-click="AdicionarPessoa()" style="display:block">Salvar</button>
+                        <button type="button" id="botaoEditar" class="btn btn-success" ng-click="EditarPessoa()" style="display:none">Editar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="LimparCampo()">Cancelar</button>
                     </div>
                 </div>
 
