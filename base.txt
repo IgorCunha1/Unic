@@ -1,1 +1,0 @@
-"Server=unicportfolio.database.windows.net;Initial Catalog=Unicsoftware;User ID=Unic;Password=4Tc2rvXzDic;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
